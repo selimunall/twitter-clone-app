@@ -7,8 +7,4 @@ import { NgModel, Form } from '@angular/forms';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent {
-  onSubmit(f: any) {
-    console.log(f.value);
-  }
-}
+export class MainComponent {}
