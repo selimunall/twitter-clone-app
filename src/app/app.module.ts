@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AsideComponent } from './aside/aside.component';
-import { MainComponent } from './main/main.component';
-import { TrendSideComponent } from './trend-side/trend-side.component';
-import { FlowComponent } from './flow/flow.component';
+import { AsideComponent } from './components/aside/aside.component';
+import { MainComponent } from './components/main/main.component';
+import { TrendSideComponent } from './components/trend-side/trend-side.component';
+import { FlowComponent } from './components/flow/flow.component';
+import { MessagesComponent } from './components/messagec/messages.component';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MessagesComponent } from './messages/messages.component';
+import { enviroments } from 'src/environments/firebase.env';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -24,16 +27,8 @@ import { MessagesComponent } from './messages/messages.component';
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [
-    AppComponent,
-    AsideComponent,
-    MainComponent,
-    TrendSideComponent,
-    FlowComponent,
-  ],
 })
 export class AppModule {}
