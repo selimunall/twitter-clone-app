@@ -19,6 +19,7 @@ module.exports = {
           line: "rgb(62,65,68)",
           bgsearch: "rgb(32,35,39)",
           bgtrend: "rgb(22,24,28)",
+          gooogleText: "#3c4043",
         },
         tw_white: {
           primary: "#e7e9ea",
@@ -37,6 +38,7 @@ module.exports = {
       },
       fontFamily: {
         chirp: "chirp",
+        googleSans: "googleSans",
         chirpss: [
           "chirp",
           {

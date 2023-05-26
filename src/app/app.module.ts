@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { enviroments } from 'src/environments/firebase.env';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AuthComponent } from './components/auth/auth.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     TrendSideComponent,
     FlowComponent,
     MessagesComponent,
+    AuthComponent,
+    UserComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    CommonModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
   providers: [],
   bootstrap: [AppComponent],
 })

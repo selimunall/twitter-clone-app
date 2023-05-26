@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="pt-[4px] w-full  border-tw_black">
-                    <form #form="ngForm" (ngSubmit)="CreateTweet(form)" >
+                    <form #form="ngForm"  (ngSubmit)="CreateTweet(form)">
                         <div (click)="form.touched" class="border-2 border-tw_black ">
                             <div form [ngClass]="{hidden: !form.touched && !form.dirty}" class="pb-[12px] "> 
                                 <div role="button" class="hover:cursor-not-allowed hover:bg-tw_soft_blue-hover duration-[.2s] px-[12px] max-w-[108px] h-[24px] rounded-full flex justify-center items-center border border-tw_gray-secondary">

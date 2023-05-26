@@ -24,5 +24,9 @@
     font-family: 'chirp';
     src: url('assets/font/Chirp-Heavy.f44ae4ea.woff2') format('woff2');
     font-weight: 900;
-    font-style: heavy;
+    font-style: black;
+}
+@font-face {
+    font-family: 'googleSans';
+    src: url('assets/font/Google-sans.ttf') format('truetype');
 }
