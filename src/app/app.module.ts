@@ -10,10 +10,11 @@ import { MessagesComponent } from './components/messagec/messages.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { enviroments } from 'src/environments/firebase.env';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AuthComponent } from './components/auth/auth.component';
 import { UserComponent } from './components/user/user.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { PopUpSignComponent } from './components/pop-up-sign/pop-up-sign.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,16 @@ import { UserComponent } from './components/user/user.component';
     MessagesComponent,
     AuthComponent,
     UserComponent,
+    PopUpSignComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    CommonModule,
+    AngularFireModule.initializeApp(enviroments.firebase),
+    AngularFirestoreModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

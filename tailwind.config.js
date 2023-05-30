@@ -25,6 +25,7 @@ module.exports = {
           primary: "#e7e9ea",
           secondar: "#d6d9db",
           hover: "rgba(255,255,255,0.03)",
+          hover2: "rgb(230,230,230)",
         },
         tw_black: "#010001",
         tw_green: {

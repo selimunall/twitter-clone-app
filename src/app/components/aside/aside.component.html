@@ -113,10 +113,10 @@
                 </a>
             </div>
         </div>
-        <div id="user" class="my-[12px]  p-[12px] pr-[12px] rounded-full hover:bg-tw_gray-hover">
+        <div (click)="LogOut()" id="user" class="my-[12px]  p-[12px] pr-[12px] rounded-full hover:bg-tw_gray-hover">
             <a href="" class="flex justify-center items-center">
                 <div class="">
-                    <img src="../../assets/img/selimppnormal.jpg" class="rounded-full h-[40px]" alt="">
+                    <img src="{{image}}" class="bg-white rounded-full h-[40px]" alt="">
                 </div>
                 <div class="flex max-w-[100%] mx-[12px] flex-col justify-center font-chirp">
                     <div class="font-bold leading-[20px] mb-[1px]  font-chirp">
