@@ -2,7 +2,7 @@ export interface tweet {
   id: string;
   content: string;
   likedBy: string[];
-  retweetBy: [],
+  retweetBy: string[];
   commentedBy: string[];
   createdAt: string;
   by: {

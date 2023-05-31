@@ -20,5 +20,6 @@ export class AppComponent {
       console.log('User yok');
       this.router.navigate(['login']);
     }
+    this.authservice.GetUsers();
   }
 }

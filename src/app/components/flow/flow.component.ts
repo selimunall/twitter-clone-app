@@ -1,4 +1,4 @@
-import { Component, Signal, effect, signal } from '@angular/core';
+import { Component, OnInit, Signal, effect, signal } from '@angular/core';
 import { tweet } from 'src/app/interfaces/tweet.interface';
 import { AuthService } from 'src/services/auth.service';
 import { TweetService } from 'src/services/tweet.service';
@@ -9,12 +9,13 @@ import { formatDistance, formatISO, parseISO } from 'date-fns';
   templateUrl: './flow.component.html',
   styleUrls: ['./flow.component.css'],
 })
-export class FlowComponent {
+export class FlowComponent implements OnInit {
   prfimage: string;
   signaltweets: Signal<[]>;
   user: any;
   username: any;
   tweets = [];
+  content: any;
 
   constructor(
     private authservice: AuthService,
@@ -27,21 +28,26 @@ export class FlowComponent {
     }
     this.user = JSON.parse(localStorage.getItem('user'));
     this.username = JSON.parse(localStorage.getItem('username'));
-    this.tweetservice.GetTweets();
+    this.fun();
+    this.tweetservice.GetTweets(this.user);
+  }
+  ngOnInit(): void {}
+
+  fun() {
+    this.tweetservice.GetTweets(this.user);
     effect(() => {
-      if (this.tweetservice.tweets().length > 1) {
-        this.tweetservice.tweets().map((a) => {
-          this.tweets.push(a.data());
-          // console.log(a.data());
-        });
-      }
+      this.tweets = [];
+      this.tweetservice.tweets().map((w) => {
+        this.tweets.push(w.data());
+        console.log(w.id);
+      });
     });
   }
 
   CreateTweet(form: any) {
     // console.log(this.tweets[0]);
     let tweet = {
-      content: form.value.content,
+      content: this.content,
       likedBy: [],
       retweetBy: [],
       commentedBy: [],
@@ -49,20 +55,20 @@ export class FlowComponent {
       by: {
         id: this.user.uid,
         name: this.user.displayName || this.user.email || '',
-        username: this.username,
+        username: this.username.username,
         profileURL: this.user.photoURL || '',
       },
     };
     this.tweetservice.CreateNewTweet(tweet);
-    form.content = '';
+    this.content = '';
     this.tweets.unshift(tweet);
+    this.fun();
   }
 
   Retweet() {
     console.log('retweet');
   }
   Like(twe: any) {
-    // this.tweetservice.onZeetLike()
     console.log(twe);
   }
   Commit() {

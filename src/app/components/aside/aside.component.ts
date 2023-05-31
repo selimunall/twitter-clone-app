@@ -8,13 +8,16 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class AsideComponent {
   image: string;
+  username: string;
+  name: string;
   constructor(private authservices: AuthService) {
-    console.log(this.authservices.getmessage().photoURL.length);
     if (this.authservices.getmessage().photoURL.length > 1) {
       this.image = this.authservices.getmessage().photoURL;
     } else {
       this.image = '../../assets/img/6859343.png';
     }
+    this.username = JSON.parse(localStorage.getItem('username')).username;
+    this.name = this.authservices.getmessage().displayName;
   }
 
   LogOut() {

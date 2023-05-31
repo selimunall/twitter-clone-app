@@ -4,23 +4,22 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { addDoc, collection, getFirestore } from '@angular/fire/firestore';
 import { add } from 'date-fns';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   getmessage = signal<any>(0);
-  usernames: any = [
-    {
-      name: 'ali',
-      usernn: '@aliveli',
-    },
-    {
-      name: 'selim',
-      usernn: '@selimunll',
-    },
-  ];
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  gecicikullanici: any;
+  usernames = [];
+  username = signal<any>(0);
+  uid: any;
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private db: AngularFirestore
+  ) {}
 
   //Login with Google
   GoogleAuth() {
@@ -32,19 +31,44 @@ export class AuthService {
       .then((result) => {
         console.log('You have been successfully logged in!');
         this.getmessage.set(result.user);
-        console.log(result.user);
+        this.gecicikullanici = result.user;
+        this.uid = result.user.uid;
         localStorage.setItem('user', JSON.stringify(result.user));
       })
       .then(() => {
-        let username = prompt('Please enter your user name:', '@');
-        this.usernames.push(username);
-        localStorage.setItem('username', JSON.stringify(username));
-      })
-      .then(() => {
-        for (let a of this.usernames) {
-          if (a.name == 'selim') {
-            console.log(a.name);
+        let control = false;
+        let aa = '';
+        for (let s of this.usernames) {
+          if (s.userUid == this.gecicikullanici.uid) {
+            control = true;
+            aa = s;
           }
+        }
+
+        if (control == true) {
+          this.username.set(aa);
+          localStorage.setItem('username', JSON.stringify(aa));
+          console.log('a');
+          this.router.navigate(['user']);
+        } else {
+          let cc = prompt('Please enter your user name:', '@');
+          console.log('b');
+          // this.fonksiyon(cc)
+          this.username.set({
+            userUid: this.uid,
+            username: cc,
+          });
+          addDoc(collection(getFirestore(), 'users'), {
+            userUid: this.uid,
+            username: cc,
+          });
+          localStorage.setItem(
+            'username',
+            JSON.stringify({
+              userUid: this.uid,
+              username: cc,
+            })
+          );
         }
         this.router.navigate(['user']);
       })
@@ -55,7 +79,11 @@ export class AuthService {
 
   //Login with Email and Password
   SignIn(email, password) {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log(result);
+      });
   }
 
   // Register user with email/password
@@ -73,7 +101,18 @@ export class AuthService {
   }
 
   //set and get users
-  setuser() {
-    // addDoc(collection(getFirestore(), 'users'), this.username);
+  SetUser() {
+    addDoc(collection(getFirestore(), 'users'), this.username);
+  }
+
+  GetUsers() {
+    this.db
+      .collection('users')
+      .get()
+      .forEach((a) => {
+        a.docs.map((s) => {
+          this.usernames.push(s.data());
+        });
+      });
   }
 }
