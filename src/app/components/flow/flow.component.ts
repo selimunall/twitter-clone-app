@@ -1,8 +1,17 @@
-import { Component, OnInit, Signal, effect, signal } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  Signal,
+  effect,
+  signal,
+} from '@angular/core';
 import { tweet } from 'src/app/interfaces/tweet.interface';
 import { AuthService } from 'src/services/auth.service';
 import { TweetService } from 'src/services/tweet.service';
 import { formatDistance, formatISO, parseISO } from 'date-fns';
+import * as dayjs from 'dayjs';
+import { Subject, fromEvent, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'flow',
@@ -11,7 +20,6 @@ import { formatDistance, formatISO, parseISO } from 'date-fns';
 })
 export class FlowComponent implements OnInit {
   prfimage: string;
-  signaltweets: Signal<[]>;
   user: any;
   username: any;
   tweets = [];
@@ -29,23 +37,41 @@ export class FlowComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.username = JSON.parse(localStorage.getItem('username'));
     this.fun();
-    this.tweetservice.GetTweets(this.user);
   }
   ngOnInit(): void {}
 
-  fun() {
-    this.tweetservice.GetTweets(this.user);
+  async fun() {
+    let now = new Date();
+    this.tweetservice.GetTweets();
     effect(() => {
-      this.tweets = [];
-      this.tweetservice.tweets().map((w) => {
-        this.tweets.push(w.data());
-        console.log(w.id);
-      });
+      //we use to signal
+      const snapshot = this.tweetservice.tweets();
+      let array = [];
+      if (snapshot) {
+        snapshot?.forEach((doc) => {
+          const { createdAt, ...rest } = doc.data();
+          const diff = dayjs(now).valueOf() - dayjs(createdAt).valueOf();
+          const date = this.msToTime(diff);
+
+          array.push({ createdAt: date, ...rest });
+        });
+      }
+      this.tweets = array;
     });
   }
 
-  CreateTweet(form: any) {
-    // console.log(this.tweets[0]);
+  msToTime(ms) {
+    let seconds = Math.round(ms / 1000);
+    let minutes = Math.round(ms / (1000 * 60));
+    let hours = Math.round(ms / (1000 * 60 * 60));
+    let days = Math.round(ms / (1000 * 60 * 60 * 24));
+    if (seconds < 60) return seconds + 's';
+    else if (minutes < 60) return minutes + 'm';
+    else if (hours < 24) return hours + 'h';
+    else return days + 'd';
+  }
+
+  CreateTweet() {
     let tweet = {
       content: this.content,
       likedBy: [],
@@ -61,20 +87,17 @@ export class FlowComponent implements OnInit {
     };
     this.tweetservice.CreateNewTweet(tweet);
     this.content = '';
-    this.tweets.unshift(tweet);
     this.fun();
   }
 
   Retweet() {
     console.log('retweet');
   }
-  Like(twe: any) {
-    console.log(twe);
+  Like(twe) {
+    this.tweetservice.onlike(twe);
   }
+
   Commit() {
     console.log('commit');
   }
-  // get zeetCreatedAt(): string {
-  //   return formatDistance(parseISO(this.tweets[0].createdAt), new Date());
-  // }
 }

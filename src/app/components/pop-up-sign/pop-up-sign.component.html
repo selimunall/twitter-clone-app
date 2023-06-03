@@ -4,7 +4,7 @@
         <div class="h-[53px] z-10 flex w-full">
             <div class="max-w-[600px] flex w-full justify-center items-center">
                 <div class="flex basis-1/2 min-w-[56px] min-h-[53px] shrink grow px-[16px] items-center">
-                    <div class=" basis-1/2 flex items-center h-full">
+                    <div (click)="closedialog()" class=" basis-1/2 flex items-center h-full">
                         <div class="hover:cursor-pointer ml-[calc(-8px)] min-h-[36px] flex min-w-[36px] rounded-full items-center justify-center hover:bg-tw_gray-hover duration-[.2s]">
                             <svg viewBox="0 0 24 24" aria-hidden="true" class="w-[20px] h-[20px] fill-current" style="color: rgb(239, 243, 244);"><path d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path></svg>
                         </div>
@@ -24,7 +24,7 @@
                 <div class="my-[20px]">
                     <h1 class="text-[31px] leading-[36px] text-tw_white-primary font-bold font-chirp">Sign in to Twitter</h1>
                 </div>
-                <div class="w-[300px] h-[40px] my-[12px] mx-auto flex justify-center">
+                <div (click)="SignInGoogle()" class="w-[300px] h-[40px] my-[12px] mx-auto flex justify-center">
                     <div class="w-[320px] h-[44px] flex justify-center hover:cursor-pointer">
                         <div class="py-[2px] flex w-full">
                             <div class="rounded-[20px] flex w-full bg-white items-center justify-center">

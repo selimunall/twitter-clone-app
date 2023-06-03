@@ -1,4 +1,4 @@
-<div  class=" border-x border-tw_gray-border h-full">
+<div class=" border-x border-tw_gray-border h-full">
     <div id="home" class="top-[0px]  sticky z-[3]  flex items-center flex-col backdrop-blur-md">
         <div class="flex w-full px-[16px] h-[53px]  items-center">
             <div class="font-bold leading-[24px] font-chirp  text-[20px] text-tw_white-primary py-[2px]">Home</div>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="pt-[4px] w-full  border-tw_black">
-                    <form #form="ngForm"  (ngSubmit)="CreateTweet(form)">
+                    <form #form="ngForm"  (ngSubmit)="CreateTweet()">
                         <div (click)="form.touched" class="border-2 border-tw_black ">
                             <div form [ngClass]="{hidden: !form.touched && !form.dirty}" class="pb-[12px] "> 
                                 <div role="button" class="hover:cursor-not-allowed hover:bg-tw_soft_blue-hover duration-[.2s] px-[12px] max-w-[108px] h-[24px] rounded-full flex justify-center items-center border border-tw_gray-secondary">
@@ -47,7 +47,7 @@
 
                             <div class="w-full py-[12px]">
                                 <div class="w-full py-[2px] flex">
-                                    <textarea required [(ngModel)]="content" name="content" id="content" wrap="soft"  class="w-full h-[24px] resize-none break-words outline-none overflow-hidden text-[20px] leading-[24px] text-tw_white-primary bg-tw_black text text placeholder-tw_gray-text font-chirp" placeholder="What is happening?!"></textarea>
+                                    <textarea rows="5" cols="50" required [(ngModel)]="content" name="content" id="content" wrap="soft"  class="w-full h-[24px] resize-none break-words outline-none overflow-hidden text-[20px] leading-[24px] text-tw_white-primary bg-tw_black text text placeholder-tw_gray-text font-chirp" placeholder="What is happening?!"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                             <div class="ml-[4px] flex">
                                 <div class="text-tw_gray-text font-chirpss" >{{twe.by.username}}</div>
                                 <div class="px-[4px] text-tw_gray-text">·</div>
-                                <div class="text-tw_gray-text font-chirp">32</div>
+                                <div class="text-tw_gray-text font-chirp">{{twe.createdAt}}</div>
                             </div>
                         </div>
                         <div class="group relative cursor-pointer">

@@ -14,7 +14,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { UserComponent } from './components/user/user.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { PopUpSignComponent } from './components/pop-up-sign/pop-up-sign.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import { PopUpSignComponent } from './components/pop-up-sign/pop-up-sign.compone
     MessagesComponent,
     AuthComponent,
     UserComponent,
-    PopUpSignComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +34,7 @@ import { PopUpSignComponent } from './components/pop-up-sign/pop-up-sign.compone
     CommonModule,
     AngularFireModule.initializeApp(enviroments.firebase),
     AngularFirestoreModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
