@@ -1,0 +1,53 @@
+<div class="w-screen h-full flex justify-center items-center top-0 fixed">
+    <div class="top-0 right-0 left-0 bottom-0 fixed flex basis-auto bg-[#5b708366]"></div>
+    <div class="z-10 bg-black min-h-[400px] max-w-[80vw] max-h-[90vw] h-[650px] min-w-[600px] shrink rounded-[16px] overflow-hidden">
+        <div class="h-[53px] z-10 flex w-full">
+            <div class="max-w-[800px] flex w-full justify-center items-center">
+                <div class="flex basis-1/2 min-w-[56px] min-h-[53px] shrink grow px-[16px] items-center">
+                    <div  class=" basis-1/2 flex items-center h-full">
+                        <div (click)="closedialog()" class="hover:cursor-pointer ml-[calc(-8px)] min-h-[36px] flex min-w-[36px] rounded-full items-center justify-center hover:bg-tw_gray-hover duration-[.2s]">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="w-[20px] h-[20px] fill-current" style="color: rgb(239, 243, 244);"><path d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="flex basis-1/2 min-h-[32px] min-w-[56px] shrink items-end grow">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex shrink w-full grow mx-auto">
+            <div class="pb-[48px] min-w-[364px] max-w-[500px] justify-start mx-auto flex flex-col">
+                <div class="my-[20px]">
+                    <h1 class="text-[31px] leading-[36px] text-tw_white-primary font-bold font-chirp">Create your account</h1>
+                </div>
+                
+                <form #form="ngForm" (ngSubmit)="createAccount()" class="pb-[48px] min-w-[364px] max-w-[500px] justify-start mx-auto flex flex-col">
+
+                    <div class="flex w-full py-[12px] h-full">
+                        <div class="relative w-full h-[58.24px] flex items-end">
+                            <input required minlength="6" [(ngModel)]="email" type="email" name="email" class="peer h-full w-full rounded-[4px] border border-[#333639] bg-transparent px-[8px] pt-[13px] pb-[2px] text-[17px] font-chirp text-blue-gray-700 outline-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-tw_blue-primary  disabled:border-0 disabled:bg-blue-gray-50" placeholder=" "/>
+                            <label  class="pointer-events-none absolute left-[8px] top-[8px] flex h-full w-full select-none text-[13px] font-chirp  text-tw_gray-text transition-all peer-placeholder-shown:text-[17px] peer-placeholder-shown:leading-[2.75] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[13px] peer-focus:leading-tight peer-focus:text-tw_blue-primary peer-disabled:text-transparent ">Email</label>
+                        </div>
+                    </div>
+                    <div class="flex w-full py-[12px] h-full">
+                        <div class="relative w-full h-[58.24px] flex items-end">
+                            <input required minlength="6" [(ngModel)]="password" type="password" name="password" class="peer h-full w-full rounded-[4px] border border-[#333639] bg-transparent px-[8px] pt-[13px] pb-[2px] text-[17px] font-chirp text-blue-gray-700 outline-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-tw_blue-primary disabled:border-0 disabled:bg-blue-gray-50" placeholder=" "/>
+                            <label class="pointer-events-none absolute left-[8px] top-[8px] flex h-full w-full select-none text-[13px] font-chirp  text-tw_gray-text transition-all peer-placeholder-shown:text-[17px] peer-placeholder-shown:leading-[2.75] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[13px] peer-focus:leading-tight peer-focus:text-tw_blue-primary peer-disabled:text-transparent ">Password</label>
+                        </div>
+                    </div>
+                    <div class="flex w-full py-[12px] h-full">
+                        <div class="relative w-full h-[58.24px] flex items-end">
+                            <input [(ngModel)]="username" name="username" class="peer h-full w-full rounded-[4px] border border-[#333639] bg-transparent px-[8px] pt-[13px] pb-[2px] text-[17px] font-chirp text-blue-gray-700 outline-none transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-tw_blue-primary disabled:border-0 disabled:bg-blue-gray-50" placeholder=" "/>
+                            <label class="pointer-events-none absolute left-[8px] top-[8px] flex h-full w-full select-none text-[13px] font-chirp  text-tw_gray-text transition-all peer-placeholder-shown:text-[17px] peer-placeholder-shown:leading-[2.75] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[13px] peer-focus:leading-tight peer-focus:text-tw_blue-primary peer-disabled:text-transparent ">Username</label>
+                        </div>
+                    </div>
+                    <button [disabled]="form.invalid" type="submit" class="disabled:bg-tw_white-hover2 hover:bg-tw_white-hover2 duration-[.2s] mt-[24px] mb-[12px] border-[0.899px] bg-white  h-[40px] flex items-center justify-center rounded-full">
+                        <span class="py-[12px] font-bold font-chirp text-tw_black">Sign up</span>
+                    </button>
+                </form>
+                <div class="mt-[40px] font-chirp ">
+                    <span class="text-tw_gray-text">Do you have an account?</span><span (click)="loginIn()"  class="text-tw_blue-primary ml-[4px] hover:cursor-pointer hover:underline duration-[.3s]">Login in</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

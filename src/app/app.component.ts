@@ -11,8 +11,9 @@ export class AppComponent {
   title = 'twitter-clone';
   constructor(private router: Router, private authservice: AuthService) {
     let user = signal(JSON.parse(localStorage.getItem('user')));
+    let username = signal(JSON.parse(localStorage.getItem('username')));
     // let username = signal(JSON.parse(localStorage.getItem('username')));
-    if (user()) {
+    if (user() && username()) {
       this.authservice.getmessage.set(JSON.parse(localStorage.getItem('user')));
       console.log('Useri aldik');
       this.router.navigate(['user']);

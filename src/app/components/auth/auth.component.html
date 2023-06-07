@@ -69,7 +69,7 @@
                                                     <div class="ml-[4px] flex">
                                                         <div class="text-tw_gray-text font-chirpss">{{tweet.by.username}}</div>
                                                         <div class="px-[4px] text-tw_gray-text">·</div>
-                                                        <div class="text-tw_gray-text font-chirp">32m</div>
+                                                        <div class="text-tw_gray-text font-chirp">{{tweet.createdAt}}</div>
                                                     </div>
                                                 </div>
                                                 <div class="group relative cursor-pointer">
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class=" flex max-w-[425px] w-full">
                                                 <div class="mt-[13px] flex justify-between gap-x-[8px] min-h-[20px] w-full relative">
-                                                    <div (click)="LoginIn()"  class=" flex group cursor-pointer">
+                                                    <div (click)="loginIn()"  class=" flex group cursor-pointer">
                                                         <div class="rounded-full absolute group-hover:bg-tw_soft_blue-hover duration-[.3s] p-[8px]  -translate-x-[calc((1.1em/2))] -translate-y-[calc((1.1em/2))]">
                                                             <div class="h-[1.25em] w-[1.25em]"></div>
                                                         </div>
@@ -95,7 +95,7 @@
                                                             <span class="h-[16px] font-chirp text-[13px] leading-[16px] min-w-[calc(1em + 24px)] px-[12px] ">{{tweet.commentedBy.length}}</span>
                                                         </div>
                                                     </div>
-                                                    <div (click)="LoginIn()" class=" flex group cursor-pointer">
+                                                    <div (click)="loginIn()" class=" flex group cursor-pointer">
                                                         <div class="rounded-full absolute group-hover:bg-tw_green-bg_hover duration-[.3s] p-[8px]  -translate-x-[calc((1.1em/2))] -translate-y-[calc((1.1em/2))]">
                                                             <div class="h-[1.25em] w-[1.25em]"></div>
                                                         </div>
@@ -104,7 +104,7 @@
                                                             <span class="h-[16px] font-chirp text-[13px] leading-[16px] min-w-[calc(1em + 24px)] px-[12px] ">{{tweet.retweetBy.length}}</span>
                                                         </div>
                                                     </div>
-                                                    <div (click)="LoginIn()" class=" flex group cursor-pointer">
+                                                    <div (click)="loginIn()" class=" flex group cursor-pointer">
                                                         <div class="rounded-full absolute group-hover:bg-tw_red-bg_hover duration-[.3s] p-[8px]  -translate-x-[calc((1.1em/2))] -translate-y-[calc((1.1em/2))]">
                                                             <div class="h-[1.25em] w-[1.25em]"></div>
                                                         </div>
@@ -137,7 +137,7 @@
                         </div>    
                     </div>
                     <div id="right" class="w-[350px]  flex mr-[10px]">
-                        <div class="h-[1476.56px] w-full pt-[12px]">
+                        <div class="h-[1000px] w-full pt-[12px]">
                             <div class="fixed">
                                 <div class="border border-tw_gray-border rounded-[16px] bg-tw_black w-[350px] flex items-start flex-col"> 
                                     <div class="py-[12px]  px-[16px] flex">
@@ -171,7 +171,7 @@
                                                 </div>
                                             </button>
     
-                                            <button class="hover:bg-tw_white-hover2 duration-[.2s] mb-[12px] w-full px-[2px] h-[39px] py-[10px] rounded-[20px] bg-white flex items-center justify-center">
+                                            <button (click)="signUp()" class="hover:bg-tw_white-hover2 duration-[.2s] mb-[12px] w-full px-[2px] h-[39px] py-[10px] rounded-[20px] bg-white flex items-center justify-center">
                                                 <div class="flex justify-center items-center ">
                                                     <div class="font-chirp text-tw_gray-gooogleText font-bold">Create account</div>
                                                 </div>
@@ -210,10 +210,10 @@
                 <div class="text-white font-chirp leading-[20px]">People on Twitter are the first to know.</div>
             </div>
             <div>
-                <button (click)="LoginIn()" class="h-[36px] border border-[#ffffff59] hover:bg-[#ffffff1a] duration-[.2s] rounded-full px-[16px]">
+                <button (click)="loginIn()" class="h-[36px] border border-[#ffffff59] hover:bg-[#ffffff1a] duration-[.2s] rounded-full px-[16px]">
                     <span class="font-chirp text-white font-bold">Log in</span>
                 </button>
-                <button class="ml-[12px] mr-[16px] h-[36px] border bg-[#eff3f4] hover:bg-[#d7dbdc] duration-[.2s] border-[#ffffff59] rounded-full px-[16px]">
+                <button (click)="signUp()" class="ml-[12px] mr-[16px] h-[36px] border bg-[#eff3f4] hover:bg-[#d7dbdc] duration-[.2s] border-[#ffffff59] rounded-full px-[16px]">
                     <span class="font-chirp font-bold text-black">Sign up</span>
                 </button>
             </div>

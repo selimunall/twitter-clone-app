@@ -1,23 +1,15 @@
-import { Injectable, Signal, computed, effect, signal } from '@angular/core';
+import { Injectable, effect, signal } from '@angular/core';
 import { tweet } from 'src/app/interfaces/tweet.interface';
 import {
-  addDoc,
-  collectionChanges,
   doc,
   getFirestore,
-  CollectionReference,
   setDoc,
   orderBy,
-  getDoc,
-  deleteDoc,
   updateDoc,
-  collectionData,
   onSnapshot,
   arrayUnion,
 } from '@angular/fire/firestore';
 import { DocumentChange, arrayRemove, limit } from 'firebase/firestore';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable, delay, map } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 @Injectable({
@@ -44,8 +36,8 @@ export class TweetService {
       const unsubscribe = onSnapshot(
         query(
           collection(getFirestore(), 'tweets'),
-          orderBy('createdAt', 'desc')
-          // limit(12)
+          orderBy('createdAt', 'desc'),
+          limit(8)
         ),
         (a) => {
           this.tweets.set(a);
@@ -69,6 +61,29 @@ export class TweetService {
 
     updateDoc(likeDocRef, {
       likedBy: isLiked ? arrayRemove(this.user.uid) : arrayUnion(this.user.uid),
+    });
+  }
+
+  async onRetweet(tweet) {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user);
+    const retweetDocRef = doc(getFirestore(), 'tweets', tweet.id);
+    const isRetweet = tweet.retweetBy.includes(this.user.uid);
+
+    updateDoc(retweetDocRef, {
+      retweetBy: isRetweet
+        ? arrayRemove(this.user.uid)
+        : arrayUnion(this.user.uid),
+    });
+  }
+  async onComment(tweet) {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user);
+    const commentDocRef = doc(getFirestore(), 'tweets', tweet.id);
+    const isComment = tweet.commentedBy.includes(this.user.uid);
+
+    updateDoc(commentDocRef, {
+      commentedBy: arrayUnion(Math.random()),
     });
   }
 }

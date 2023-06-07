@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { addDoc, collection, getFirestore } from '@angular/fire/firestore';
@@ -48,10 +48,13 @@ export class AuthService {
         if (control == true) {
           this.username.set(aa);
           localStorage.setItem('username', JSON.stringify(aa));
-          console.log('a');
           this.router.navigate(['user']);
         } else {
           let cc = prompt('Please enter your user name:', '@');
+          if (cc == '' || cc == '@') {
+            alert('Please input your user name!');
+            return;
+          }
           console.log('b');
           // this.fonksiyon(cc)
           this.username.set({
@@ -81,14 +84,25 @@ export class AuthService {
   SignIn(email, password) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        console.log(result);
-      });
+      .then((result) => {});
   }
 
   // Register user with email/password
-  RegisterUser(email, password) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+  RegisterUser(email, password, username) {
+    this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.getmessage.set(result.user);
+        localStorage.setItem('user', JSON.stringify(result.user));
+        localStorage.setItem(
+          'username',
+          JSON.stringify({
+            userUid: result.user.uid,
+            username: username,
+          })
+        );
+        this.router.navigate(['user']);
+      });
   }
 
   // Sign-out

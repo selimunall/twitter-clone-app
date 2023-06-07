@@ -11,7 +11,7 @@ export class AsideComponent {
   username: string;
   name: string;
   constructor(private authservices: AuthService) {
-    if (this.authservices.getmessage().photoURL.length > 1) {
+    if (this.authservices.getmessage().photoURL) {
       this.image = this.authservices.getmessage().photoURL;
     } else {
       this.image = '../../assets/img/6859343.png';

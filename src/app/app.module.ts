@@ -15,6 +15,8 @@ import { UserComponent } from './components/user/user.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { PopUpCreateComponent } from './components/pop-up-create/pop-up-create.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MessagesComponent,
     AuthComponent,
     UserComponent,
+    PopUpCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AngularFireModule.initializeApp(enviroments.firebase),
     AngularFirestoreModule,
     MatDialogModule,
+    PickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

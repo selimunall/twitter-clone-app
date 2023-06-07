@@ -1,17 +1,9 @@
-import {
-  Component,
-  HostListener,
-  OnInit,
-  Signal,
-  effect,
-  signal,
-} from '@angular/core';
-import { tweet } from 'src/app/interfaces/tweet.interface';
+import { Component, OnInit, Signal, effect, signal } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
 import { TweetService } from 'src/services/tweet.service';
-import { formatDistance, formatISO, parseISO } from 'date-fns';
+import { formatISO } from 'date-fns';
 import * as dayjs from 'dayjs';
-import { Subject, fromEvent, takeUntil } from 'rxjs';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'flow',
@@ -23,13 +15,13 @@ export class FlowComponent implements OnInit {
   user: any;
   username: any;
   tweets = [];
-  content: any;
-
+  content = '';
+  showEmojiWindow = false;
   constructor(
     private authservice: AuthService,
     private tweetservice: TweetService
   ) {
-    if (this.authservice.getmessage().photoURL.length > 1) {
+    if (this.authservice.getmessage().photoURL) {
       this.prfimage = this.authservice.getmessage().photoURL;
     } else {
       this.prfimage = '../../assets/img/6859343.png';
@@ -47,13 +39,14 @@ export class FlowComponent implements OnInit {
       //we use to signal
       const snapshot = this.tweetservice.tweets();
       let array = [];
+      let liked;
       if (snapshot) {
         snapshot?.forEach((doc) => {
-          const { createdAt, ...rest } = doc.data();
+          const { likedBy, createdAt, ...rest } = doc.data();
           const diff = dayjs(now).valueOf() - dayjs(createdAt).valueOf();
           const date = this.msToTime(diff);
-
-          array.push({ createdAt: date, ...rest });
+          likedBy.includes(this.user.uid) ? (liked = true) : (liked = false);
+          array.push({ liked, createdAt: date, likedBy, ...rest });
         });
       }
       this.tweets = array;
@@ -90,14 +83,22 @@ export class FlowComponent implements OnInit {
     this.fun();
   }
 
-  Retweet() {
-    console.log('retweet');
+  Retweet(twe) {
+    this.tweetservice.onRetweet(twe);
   }
   Like(twe) {
     this.tweetservice.onlike(twe);
   }
+  handleClick($event) {
+    console.log($event.emoji.native);
+    this.content = this.content + $event.emoji.native;
+  }
+  showEmoji() {
+    this.showEmojiWindow = !this.showEmojiWindow;
+  }
 
-  Commit() {
-    console.log('commit');
+  Commit(twe) {
+    let comment = prompt('Please input your comment..');
+    this.tweetservice.onComment(twe);
   }
 }

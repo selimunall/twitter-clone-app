@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import '@ctrl/ngx-emoji-mart/picker';
 @font-face {
     font-family: 'chirp';
     src: url('assets/font/Chirp-Regular.80fda27a.woff2') format('woff2');
